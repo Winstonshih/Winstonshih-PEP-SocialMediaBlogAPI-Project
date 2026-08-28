@@ -19,6 +19,9 @@ public class SocialMediaController {
         app.post("/register", this::registerAccountHandler);
         app.post("/login", this::loginAccountHandler);
         app.post("/messages", this::newMessageHandler);
+        app.get("/messages", this::getAllMessagesHandler);
+        app.get("/messages/{message_id}", this::getOneMessageHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageHandler);
         return app;
     }
 
@@ -33,6 +36,15 @@ public class SocialMediaController {
         context.json("sample text");
     }
     private void newMessageHandler(Context context) {
+        context.json("sample text");
+    }
+    private void getAllMessagesHandler(Context context) {
+        context.json("sample text");
+    }
+    private void getOneMessageHandler(Context context) {
+        context.json("sample text");
+    }
+    private void deleteMessageHandler(Context context) {
         context.json("sample text");
     }
 }
