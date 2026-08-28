@@ -16,8 +16,9 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.get("example-endpoint", this::exampleHandler);
-        app.start(8000);
+        app.post("/register", this::registerAccountHandler);
+        app.post("/login", this::loginAccountHandler);
+        app.post("/messages", this::newMessageHandler);
         return app;
     }
 
@@ -25,9 +26,13 @@ public class SocialMediaController {
      * This is an example handler for an example endpoint.
      * @param context The Javalin Context object manages information about both the HTTP request and response.
      */
-    private void exampleHandler(Context context) {
+    private void registerAccountHandler(Context context) {
         context.json("sample text");
     }
-
-
+    private void loginAccountHandler(Context context) {
+        context.json("sample text");
+    }
+    private void newMessageHandler(Context context) {
+        context.json("sample text");
+    }
 }
