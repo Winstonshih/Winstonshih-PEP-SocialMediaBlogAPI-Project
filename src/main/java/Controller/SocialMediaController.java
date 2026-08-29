@@ -110,7 +110,7 @@ public class SocialMediaController {
         if(patchedMessage == null){
             context.status(400);
         }else{
-            context.json(mapper.writeValueAsString(patchedMessage));
+            context.json(patchedMessage);
         }
     }
     private void retrieveAllMessageHandler(Context context) throws JsonProcessingException{
