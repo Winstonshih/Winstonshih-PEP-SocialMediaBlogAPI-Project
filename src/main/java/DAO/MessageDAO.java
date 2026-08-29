@@ -71,7 +71,7 @@ public class MessageDAO {
     }
     //return null;
   }
-  public Message updateMessage(int id, String m)
+  public void updateMessage(int id, String m)
   {
     Connection connection = ConnectionUtil.getConnection();
         try {
@@ -79,14 +79,8 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, m);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            if(rs.next()){
-                return new Message(id, rs.getInt("posted_by"), m, rs.getLong("time_posted_epoch"));
-            }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
   }
 }

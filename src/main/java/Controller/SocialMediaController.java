@@ -106,7 +106,7 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Message m = mapper.readValue(context.body(), Message.class);
         int message_id = Integer.parseInt(context.pathParam("message_id"));
-        Message patchedMessage= messageService.updateMessage(message_id, m);
+        Message patchedMessage= messageService.updateMessage(message_id, m.getMessage_text());
         if(patchedMessage == null){
             context.status(400);
         }else{

@@ -27,12 +27,13 @@ public class MessageService {
   {
     return this.messageDAO.deleteMessage(iD);
   }
-  public Message updateMessage(Message m)
+  public Message updateMessage(int id, String m)
   {
-    if(m.getMessage_text().equals("")||m.getMessage_text().length()>255)
+    if(m.equals("")||m.equals(null)||m.length()>255||messageDAO.getMessageById(id).equals(null))
     {
         return null;
     }
-    return this.messageDAO.updateMessage(m.getMessage_id(), m.getMessage_text());
+    messageDAO.updateMessage(id, m);
+    return messageDAO.getMessageById(id);
   }
 }
