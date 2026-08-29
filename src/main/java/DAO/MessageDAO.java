@@ -1,5 +1,6 @@
 package DAO;
 import Model.Message;
+import Service.MessageService;
 import Util.ConnectionUtil;
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,19 +71,17 @@ public class MessageDAO {
     }
     //return null;
   }
-  public Message updateMessage(int id, Message m)
+  public Message updateMessage(int id, String m)
   {
     Connection connection = ConnectionUtil.getConnection();
         try {
-            String sql = "update message set posted_by=?, message_text=?, time_posted_epoch=? where message_id=?;";
+            String sql = "update message set message_text=? where message_id=?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, m.getPosted_by());
-            preparedStatement.setString(2, m.getMessage_text());
-            preparedStatement.setLong(3, m.getTime_posted_epoch());
-            preparedStatement.setInt(4, id);
+            preparedStatement.setString(1, m);
+            preparedStatement.setInt(2, id);
             int rows=preparedStatement.executeUpdate();
             if(rows>0){
-                return new Message(id, m.getPosted_by(), m.getMessage_text(), m.getTime_posted_epoch());
+                return new Message(id, m);
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
