@@ -91,7 +91,7 @@ public class SocialMediaController {
     private void patchMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
     }
-    private void retrieveAllMessageHandler(Context context) throws Json{
+    private void retrieveAllMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
     }
 }
