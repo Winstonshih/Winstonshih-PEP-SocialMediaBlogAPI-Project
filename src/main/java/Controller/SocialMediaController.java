@@ -82,16 +82,16 @@ public class SocialMediaController {
             context.status(200);
         }
     }
-    private void getOneMessageHandler(Context context) {
+    private void getOneMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
     }
-    private void deleteMessageHandler(Context context) {
+    private void deleteMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
     }
-    private void patchMessageHandler(Context context) {
+    private void patchMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
     }
-    private void retrieveAllMessageHandler(Context context) {
+    private void retrieveAllMessageHandler(Context context) throws Json{
         context.json("sample text");
     }
 }
