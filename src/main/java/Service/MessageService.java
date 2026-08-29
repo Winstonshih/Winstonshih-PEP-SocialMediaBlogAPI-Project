@@ -29,11 +29,11 @@ public class MessageService {
   }
   public Message updateMessage(int id, Message m)
   {
-    if(messageDAO.getMessageById(id)!=null)
+    if(messageDAO.getMessageById(id)==null)
     {
-      messageDAO.getMessageById(id).setMessage_text(m.getMessage_text());
-      return messageDAO.updateMessage(id, m);
+        return null;
     }
-      return null;
+    messageDAO.updateMessage(id, m);
+    return messageDAO.getMessageById(id);
   }
 }
