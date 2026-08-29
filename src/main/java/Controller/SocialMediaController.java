@@ -103,7 +103,15 @@ public class SocialMediaController {
         }
     }
     private void patchMessageHandler(Context context) throws JsonProcessingException{
-        context.json("sample text");
+        ObjectMapper mapper = new ObjectMapper();
+        Message m = mapper.readValue(context.body(), Message.class);
+        int message_id = Integer.parseInt(context.pathParam("message_id"));
+        Message patchedMessage= messageService.updateMessage(message_id, m);
+        if(patchedMessage == null){
+            context.status(400);
+        }else{
+            context.json(mapper.writeValueAsString(patchedMessage));
+        }
     }
     private void retrieveAllMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");

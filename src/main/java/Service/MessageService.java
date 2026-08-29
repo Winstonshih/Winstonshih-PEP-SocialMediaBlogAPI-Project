@@ -27,4 +27,13 @@ public class MessageService {
   {
     return this.messageDAO.deleteMessage(iD);
   }
+  public Message updateMessage(int id, Message m)
+  {
+    if(messageDAO.getMessageById(id)!=null)
+    {
+      messageDAO.updateMessage(id, m);
+      return messageDAO.getMessageById(id);
+    }
+      return null;
+  }
 }

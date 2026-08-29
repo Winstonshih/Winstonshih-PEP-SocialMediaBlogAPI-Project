@@ -21,6 +21,23 @@ public class MessageDAO {
     }
     return messages;
   }
+  public Message getMessageById(int id){
+    Connection connection = ConnectionUtil.getConnection();
+    try {
+        String sql = "select * from flight where message_id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()){
+            Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"),
+                    rs.getString("message_text"), rs.getLong("time_posted_epoch"));
+            return m;
+        }
+    }catch(SQLException e){
+        System.out.println(e.getMessage());
+    }
+    return null;
+}
   public Message insertMessage(Message message){
     Connection connection = ConnectionUtil.getConnection();
     try {
@@ -44,7 +61,7 @@ public class MessageDAO {
     Connection connection = ConnectionUtil.getConnection();
     try {
         String sql = "delete from message where message_id = ?;" ;
-        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         Message m=new Message();
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
@@ -52,5 +69,20 @@ public class MessageDAO {
         System.out.println(e.getMessage());
     }
     return null;
+  }
+  public void updateMessage(int id, Message m)
+  {
+    Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "update message set posted_by=?, message_text=?, time_posted_epoch=? where message_id=?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, m.getPosted_by());
+            preparedStatement.setString(2, m.getMessage_text());
+            preparedStatement.setLong(3, m.getTime_posted_epoch());
+            preparedStatement.setInt(4, id);
+            preparedStatement.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
   }
 }
