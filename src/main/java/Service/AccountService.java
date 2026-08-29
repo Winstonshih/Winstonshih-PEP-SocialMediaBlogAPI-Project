@@ -17,7 +17,10 @@ public class AccountService {
   }
   public Account login(Account account)
   {
-    return this.accountDAO.selectAccount(account)
+    return this.accountDAO.selectAccount(account);
   }
-
+  public Account newMessage()
+  {
+    
+  }
 }

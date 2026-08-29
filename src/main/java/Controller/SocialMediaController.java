@@ -64,7 +64,15 @@ public class SocialMediaController {
         }
     }
     private void newMessageHandler(Context context) {
-        context.json("sample text");
+        ObjectMapper mapper = new ObjectMapper();
+        Account a = mapper.readValue(context.body(), Account.class);
+        Account addedAccount = accountService.newMessage(a);
+        if(addedAccount!=null){
+            context.json(mapper.writeValueAsString(addedAccount));
+        }else{
+            context.status(401);
+        }
+    }
     }
     private void getAllMessagesHandler(Context context) {
         context.json("sample text");
