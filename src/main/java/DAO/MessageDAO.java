@@ -25,7 +25,7 @@ public class MessageDAO {
   public Message getMessageById(int id){
     Connection connection = ConnectionUtil.getConnection();
     try {
-        String sql = "select * from flight where message_id=?;";
+        String sql = "select * from message where message_id=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet rs = preparedStatement.executeQuery();
