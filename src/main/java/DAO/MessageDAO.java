@@ -79,9 +79,10 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, m);
             preparedStatement.setInt(2, id);
-            int rows=preparedStatement.executeUpdate();
-            if(rows>0){
-                return new Message(id, m);
+            preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if(rs.next()){
+                return new Message(id, rs.getInt("posted_by"), m, rs.getLong("time_posted_epoch"));
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
