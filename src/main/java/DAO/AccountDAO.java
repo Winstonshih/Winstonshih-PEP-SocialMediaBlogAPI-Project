@@ -48,11 +48,12 @@ public class AccountDAO {
         preparedStatement.setString(1, account.getUsername());
         preparedStatement.setString(2, account.getPassword());
         ResultSet rs = preparedStatement.executeQuery();
-        if(rs.next()){
-            Account a = new Account(rs.getInt("account_id"),
-                    rs.getString("username"),
-                    rs.getString("password"));
-            return a;
+        try (ResultSet rs = preparedStatement.executeQuery()) {
+            if (rs.next()) {
+                return new Account(rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"));
+            }
         }
     }catch(SQLException e){
         System.out.println(e.getMessage());
