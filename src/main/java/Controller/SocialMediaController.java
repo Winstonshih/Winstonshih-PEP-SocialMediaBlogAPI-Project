@@ -74,14 +74,16 @@ public class SocialMediaController {
         }
     }
     private void getAllMessagesHandler(Context context) throws JsonProcessingException{
-        ObjectMapper mapper = new ObjectMapper();
-        Message m = mapper.readValue(context.body(), Message.class);
-        Message addedMessage = messageService.getAllMessages(m);
-        if(addedMessage!=null){
-            context.json(mapper.writeValueAsString(addedMessage));
-        }else{
-            context.status(200);
-        }
+        List<Message> message = messageService.getAllMessages();
+        context.json(message);
+        //ObjectMapper mapper = new ObjectMapper();
+        //Message m = mapper.readValue(context.body(), Message.class);
+        //Message addedMessage = messageService.getAllMessages();
+        //if(addedMessage!=null){
+        //    context.json(mapper.writeValueAsString(addedMessage));
+       // }else{
+        //    context.status(200);
+        //}
     }
     private void getOneMessageHandler(Context context) {
         context.json("sample text");
