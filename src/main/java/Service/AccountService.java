@@ -12,11 +12,16 @@ public class AccountService {
   {
     this.accountDAO=accountDAO;
   }
-  public Account addAccount(Account a) {
-    return accountDAO.insertAccount(a);
-  }
   public Account login(Account account)
   {
     return this.accountDAO.selectAccount(account);
+  }
+  public Account registerAccount(Account account)
+  {
+    if(account.getUsername()!=null && account.getPassword()!=null)
+    {
+      return this.accountDAO.addAccount(account);
+    }
+    return null;
   }
 }

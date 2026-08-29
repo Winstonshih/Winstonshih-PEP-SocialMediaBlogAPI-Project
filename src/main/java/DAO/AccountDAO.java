@@ -21,7 +21,7 @@ public class AccountDAO {
     }
     return accounts;
   }
-  public Account insertAccount(Account account){
+  public Account addAccount(Account account){
     Connection connection = ConnectionUtil.getConnection();
     try {
         String sql = "insert into account (username, password) values (?);" ;

@@ -46,7 +46,7 @@ public class SocialMediaController {
     private void registerAccountHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Account a = mapper.readValue(context.body(), Account.class);
-        Account addedAccount = accountService.addAccount(a);
+        Account addedAccount = accountService.registerAccount(a);
         if(addedAccount!=null){
             context.json(mapper.writeValueAsString(addedAccount));
         }else{
@@ -83,7 +83,14 @@ public class SocialMediaController {
         }
     }
     private void getOneMessageHandler(Context context) throws JsonProcessingException{
-        context.json("sample text");
+        ObjectMapper mapper = new ObjectMapper();
+        int message_id=Integer.parseInt(context.pathParam("message_id"));
+        List<Message> message = messageService.getMessageByID(message_id);
+        if(message!=null){
+            context.json(mapper.writeValueAsString(message));
+        }else{
+            context.status(200);
+        }
     }
     private void deleteMessageHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
