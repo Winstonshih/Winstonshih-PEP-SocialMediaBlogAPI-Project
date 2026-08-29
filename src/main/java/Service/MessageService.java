@@ -31,8 +31,8 @@ public class MessageService {
   {
     if(messageDAO.getMessageById(id)!=null)
     {
-      messageDAO.updateMessage(id, m);
-      return messageDAO.getMessageById(id);
+      messageDAO.getMessageById(id).setMessage_text(m.getMessage_text());
+      return messageDAO.updateMessage(id, m);
     }
       return null;
   }
