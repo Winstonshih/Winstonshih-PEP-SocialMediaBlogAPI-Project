@@ -18,7 +18,7 @@ public class AccountService {
   }
   public Account registerAccount(Account account)
   {
-    if(account.getUsername()!=null && account.getPassword()!=null )
+    if(!(account.getUsername().equals("")) && account.getPassword().equals("")) )
     {
       return this.accountDAO.addAccount(account);
     }
