@@ -79,6 +79,7 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, m);
             preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
