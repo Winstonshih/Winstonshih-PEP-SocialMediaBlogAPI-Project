@@ -19,8 +19,4 @@ public class AccountService {
   {
     return this.accountDAO.selectAccount(account);
   }
-  public Account newMessage()
-  {
-    
-  }
 }
