@@ -73,7 +73,6 @@ public class SocialMediaController {
             context.status(200);
         }
     }
-    }
     private void getAllMessagesHandler(Context context) {
         context.json("sample text");
     }
