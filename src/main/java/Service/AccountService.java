@@ -12,4 +12,12 @@ public class AccountService {
   {
     this.accountDAO=accountDAO;
   }
+  public Account addAccount(Account a) {
+    return accountDAO.insertAccount(a);
+  }
+  public Account login(Account account)
+  {
+    return this.accountDAO.selectAccount(account)
+  }
+
 }
