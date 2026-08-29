@@ -66,7 +66,7 @@ public class SocialMediaController {
     private void newMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Message m = mapper.readValue(context.body(), Message.class);
-        Account addedMessage = messageService.getMessage(m);
+        Message addedMessage = messageService.addMessage(m);
         if(addedMessage!=null){
             context.json(mapper.writeValueAsString(addedMessage));
         }else{
