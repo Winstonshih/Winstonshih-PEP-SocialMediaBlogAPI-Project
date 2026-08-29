@@ -82,9 +82,7 @@ public class MessageDAO {
             preparedStatement.setInt(4, id);
             int rows=preparedStatement.executeUpdate();
             if(rows>0){
-                Message msg = new Message(m.getInt("message_id"), m.getInt("posted_by"),
-                        m.getString("message_text"), m.getLong("time_posted_epoch"));
-                return msg;
+                return new Message(id, m.getPosted_by(), m.getMessage_text(), m.getTime_posted_epoch());
             }
         }catch(SQLException e){
             System.out.println(e.getMessage());
