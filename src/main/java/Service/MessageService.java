@@ -29,7 +29,7 @@ public class MessageService {
   }
   public Message updateMessage(int id, String m)
   {
-    if(m==null||m.isEmpty()||m.length()>255||messageDAO.getMessageById(id)==null)
+    if(m==null||m.length()>255||messageDAO.getMessageById(id)==null)
     {
         return null;
     }
