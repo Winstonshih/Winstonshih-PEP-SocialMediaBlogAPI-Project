@@ -12,11 +12,10 @@ public class MessageService {
     this.messageDAO=new MessageDAO();
   }
   public Message addMessage(Message m) {
-    if(m.getMessage_text().length()<=255 || m.getPosted_by()!=0)
+    if(m.getMessage_text().length()<=255 || m.getPosted_by()!=0||!(m.getMessage_text().equals("")))
     {
-        return null;
+        return this.messageDAO.insertMessage(m);
     }
-    messageDAO.insertMessage(m);
-    return m;
+    return null;
 }
 }
