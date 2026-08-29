@@ -70,7 +70,7 @@ public class SocialMediaController {
         if(addedMessage!=null){
             context.json(mapper.writeValueAsString(addedMessage));
         }else{
-            context.status(200);
+            context.status(400);
         }
     }
     private void getAllMessagesHandler(Context context) throws JsonProcessingException{
