@@ -21,7 +21,7 @@ public class MessageService {
   }
   public List<Message> getAllMessages()
   {
-    return messageDAO.getAllMessages();
+    return this.messageDAO.getAllMessages();
   }
   public Message getMessageByID(int id)
   {
@@ -39,5 +39,9 @@ public class MessageService {
     }
     messageDAO.updateMessage(id, m);
     return messageDAO.getMessageById(id);
+  }
+  public List<Message> getAllMessagesByUser(int user_id)
+  {
+    return this.messageDAO.getAllMessagesbyUser(user_id);
   }
 }
