@@ -35,7 +35,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getOneMessageHandler);
         app.delete("/messages/{message_id}", this::deleteMessageHandler);
         app.patch("/messages/{message_id}", this::patchMessageHandler);
-        app.get("/messages/{message_id}/messages", this::retrieveAllMessageHandler);
+        app.get("/messages/{message_id}/messages", this::retrieveAllMessagesByUserHandler);
         return app;
     }
 
@@ -114,6 +114,12 @@ public class SocialMediaController {
         }
     }
     private void retrieveAllMessagesByUserHandler(Context context) throws JsonProcessingException{
-        context.json("sample text");
+        ObjectMapper mapper = new ObjectMapper();
+        List<Message> message = messageService.getAllMessages();
+        if(message!=null){
+            context.json(mapper.writeValueAsString(message));
+        }else{
+            context.status(200);
+        }
     }
 }
