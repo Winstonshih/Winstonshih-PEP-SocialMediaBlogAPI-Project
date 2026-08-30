@@ -99,11 +99,12 @@ public class MessageDAO {
             Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"),
                     rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             messages.add(m);
+        return messages;
         }
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
-    return messages;
+    return null;
   }
   
 }
