@@ -61,11 +61,12 @@ public class MessageDAO {
  public Message deleteMessage(int id){
     Connection connection = ConnectionUtil.getConnection();
     try {
+        Message msg=getMessageById(id);
         String sql = "delete from message where message_id = ?;" ;
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
-        return getMessageById(id);
+        return msg;
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
