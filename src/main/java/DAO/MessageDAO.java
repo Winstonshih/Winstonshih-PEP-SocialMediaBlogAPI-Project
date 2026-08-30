@@ -93,7 +93,7 @@ public class MessageDAO {
     try {
         String sql = "select * from message where posted_by=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, user_id);
+        preparedStatement.setInt(2, user_id);
         ResultSet rs = preparedStatement.executeQuery();
         while(rs.next()){
             Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"),
