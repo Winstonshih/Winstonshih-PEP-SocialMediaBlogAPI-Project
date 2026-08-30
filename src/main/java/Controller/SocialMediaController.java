@@ -118,7 +118,7 @@ public class SocialMediaController {
         int user_id=Integer.parseInt(context.pathParam("account_id"));
         List<Message> message = messageService.getAllMessagesByUser(user_id);
         if(message!=null){
-            context.json(mapper.writeValueAsString(message));
+            context.json(message);
         }else{
             context.status(200);
         }
