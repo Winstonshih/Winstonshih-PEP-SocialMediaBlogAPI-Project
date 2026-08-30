@@ -35,7 +35,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getOneMessageHandler);
         app.delete("/messages/{message_id}", this::deleteMessageHandler);
         app.patch("/messages/{message_id}", this::patchMessageHandler);
-        app.get("/messages/{message_id}/messages", this::retrieveAllMessagesByUserHandler);
+        app.get("/accounts/{message_id}/messages", this::retrieveAllMessagesByUserHandler);
         return app;
     }
 
