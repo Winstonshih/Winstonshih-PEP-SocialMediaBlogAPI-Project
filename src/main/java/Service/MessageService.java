@@ -23,6 +23,10 @@ public class MessageService {
   {
     return messageDAO.getAllMessages();
   }
+  public Message getMessageByID(int id)
+  {
+    return this.messageDAO.getMessageById(id);
+  }
   public Message deleteMessageByID(int id)
   {
     return this.messageDAO.deleteMessage(id);

@@ -85,7 +85,7 @@ public class SocialMediaController {
     private void getOneMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         int message_id=Integer.parseInt(context.pathParam("message_id"));
-        List<Message> message = messageService.getMessageByID(message_id);
+        Message message = messageService.getMessageByID(message_id);
         if(message!=null){
             context.json(mapper.writeValueAsString(message));
         }else{
@@ -113,7 +113,7 @@ public class SocialMediaController {
             context.json(patchedMessage);
         }
     }
-    private void retrieveAllMessageHandler(Context context) throws JsonProcessingException{
+    private void retrieveAllMessagesByUserHandler(Context context) throws JsonProcessingException{
         context.json("sample text");
     }
 }
