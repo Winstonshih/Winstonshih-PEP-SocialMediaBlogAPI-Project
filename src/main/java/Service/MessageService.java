@@ -42,6 +42,6 @@ public class MessageService {
   }
   public List<Message> getAllMessagesByUser(int user_id)
   {
-    return this.messageDAO.getAllMessagesbyUser(user_id);
+    return this.messageDAO.getAllMessagesByUser(user_id);
   }
 }
