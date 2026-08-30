@@ -35,7 +35,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getOneMessageHandler);
         app.delete("/messages/{message_id}", this::deleteMessageHandler);
         app.patch("/messages/{message_id}", this::patchMessageHandler);
-        app.get("/accounts/{message_id}/messages", this::retrieveAllMessagesByUserHandler);
+        app.get("/accounts/{account_id}/messages", this::retrieveAllMessagesByUserHandler);
         return app;
     }
 
@@ -118,7 +118,7 @@ public class SocialMediaController {
         int user_id=Integer.parseInt(context.pathParam("account_id"));
         List<Message> message = messageService.getAllMessagesByUser(user_id);
         if(message!=null){
-            context.json(message);
+            context.json(mapper.writeValueAsString(message));
         }else{
             context.status(200);
         }
