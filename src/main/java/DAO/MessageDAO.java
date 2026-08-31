@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class MessageDAO {
     /**
-     * 
+     * Method 
      * @return
      */
   public List<Message> getAllMessages(){
@@ -21,10 +21,11 @@ public class MessageDAO {
             Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             messages.add(message);
         }
+        return messages
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
-    return messages;
+    return null;
   }
   /**
    * 
