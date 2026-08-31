@@ -19,17 +19,17 @@ public class AccountService {
     this.accountDAO=accountDAO;
   }
   /**
-   * Login social media account method.
+   * Login method that checks to see if an account is in Account ArrayList and returns persisted account if successful.
    * @param account Social media account that will be logged into.
-   * @return this.accountDAO.selectAccount(account) The persisted account if persistence is successful.
+   * @return The persisted account if persistence is successful or null if not.
    */
   public Account login(Account account)
   {
     return this.accountDAO.selectAccount(account);
   }
   /**
-   * 
-   * @return 
+   * Register method checks to see if username and password is valid before persisting account.
+   * @return Persisted account if persistenc is successful or null if not successful.
    */
   public Account registerAccount(Account account)
   {

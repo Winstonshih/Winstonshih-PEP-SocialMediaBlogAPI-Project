@@ -5,22 +5,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class AccountDAO {
-  public List<Account> getAllAccounts(){
-    Connection connection = ConnectionUtil.getConnection();
-    List<Account> accounts = new ArrayList<>();
-    try {
-        String sql = "select * from account";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet rs = preparedStatement.executeQuery();
-        while(rs.next()){
-            Account account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
-            accounts.add(account);
-        }
-    }catch(SQLException e){
-        System.out.println(e.getMessage());
-    }
-    return accounts;
-  }
+    /**
+     * 
+     * @return Account ArrayList called accounts containing all accounts
+     */
+//   public List<Account> getAllAccounts(){
+//     Connection connection = ConnectionUtil.getConnection();
+//     List<Account> accounts = new ArrayList<>();
+//     try {
+//         String sql = "select * from account";
+//         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//         ResultSet rs = preparedStatement.executeQuery();
+//         while(rs.next()){
+//             Account account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+//             accounts.add(account);
+//         }
+//     }catch(SQLException e){
+//         System.out.println(e.getMessage());
+//     }
+//     return accounts;
+//   }
   public Account addAccount(Account account){
     Connection connection = ConnectionUtil.getConnection();
     try {
@@ -39,6 +43,11 @@ public class AccountDAO {
     }
     return null;
   }
+  /**
+   * 
+   * @param account account that will be logged into.
+   * @return
+   */
   public Account selectAccount(Account account)
   {
     Connection connection = ConnectionUtil.getConnection();
