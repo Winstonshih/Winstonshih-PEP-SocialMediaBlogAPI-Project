@@ -11,23 +11,28 @@ public class MessageDAO {
      * @return messages arraylist if all messages could be retrieved or null if DAO is unable to.
      */
   public List<Message> getAllMessages(){
+    // Creates a connection to database.
     Connection connection = ConnectionUtil.getConnection();
+    // ArrayList that stores all messages in database.
     List<Message> messages = new ArrayList<>();
     try {
+        // Stores select query for getting all messages.
         String sql = "select * from message";
+        // Creates a PreparedStatement object that avoids SQL injections.
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // Stores results of query in a ResultSet object.
         ResultSet rs = preparedStatement.executeQuery();
-        // Adds full messages to ArrayList.
+        // Adds full messages to ArrayList while scanning ResultSet.
         while(rs.next()){
             Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             messages.add(message);
         }
         // If query can retrieve all messages in database.
         return messages;
-    }catch(SQLException e){
+    }catch(SQLException e){ // Catches exceptions that occur when querying all messages.
         System.out.println(e.getMessage());
     }
-    // If query could not retrieve all messages.
+    // If query could not retrieve all messages, return null.
     return null;
   }
   /**
@@ -38,17 +43,21 @@ public class MessageDAO {
   public Message getMessageById(int id){
     Connection connection = ConnectionUtil.getConnection();
     try {
+        // Query for getting all tuples that match message_id.
         String sql = "select * from message where message_id=?;";
+        // Creates a PreparedStatement object that avoids SQL injections.
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // Binds message id to a placeholder.
         preparedStatement.setInt(1, id);
+        //Stores results of query in a ResultSet object.
         ResultSet rs = preparedStatement.executeQuery();
-
+        // If a message in ResultSet is matched with message id, then it is returned.
         while(rs.next()){
             Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"),
                     rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             return m;
         }
-    }catch(SQLException e){
+    }catch(SQLException e){ // Catches any exceptions that may occur while retrieving a message by id.
         System.out.println(e.getMessage());
     }
     // If message id cannot be matched, method returns null.
@@ -60,20 +69,31 @@ public class MessageDAO {
  * @return inserted message object and its data if successfully inserted or null if not inserted.
  */
   public Message insertMessage(Message message){
+    // Establishes connection with SQL database.
     Connection connection = ConnectionUtil.getConnection();
     try {
+        // Stores query that will insert a new message into database.
         String sql = "insert into message (posted_by, message_text, time_posted_epoch) values (?, ?, ?);" ;
+        // Creates a PreparedStatement object that avoids SQL injections and retrieves auto generated keys.
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        // Binds to first placeholder.
         preparedStatement.setInt(1, message.getPosted_by());
+        // Binds to second placeholder.
         preparedStatement.setString(2, message.getMessage_text());
+        // Binds to third placeholder.
         preparedStatement.setLong(3, message.getTime_posted_epoch());
+        // Executes insert query.
         preparedStatement.executeUpdate();
+        // Retrieves ResultSet that has matched auto-generated message id key from insert query.
         ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
+        // If message id key was returned, cursor goes to first row in pkeyResultSet
         if(pkeyResultSet.next()){
+            // Auto generates a message id.
             int generated_message_id = (int) pkeyResultSet.getLong(1);
+            // Returns inserted message.
             return new Message(generated_message_id, message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
         }
-    }catch(SQLException e){
+    }catch(SQLException e){ //Catches any exceptions that may occur while inserting a message.
         System.out.println(e.getMessage());
     }
     // Returns null if message can not be inserted.
@@ -100,7 +120,7 @@ public class MessageDAO {
         preparedStatement.executeUpdate();
         // Returns the full message that was deleted.
         return msg;
-    }catch(SQLException e){ // Catches errors that occur when executing SQL query.
+    }catch(SQLException e){ // Catches exceptions that occur when executing SQL query.
         System.out.println(e.getMessage());
     }
     // Returns null if message was not deleted.
@@ -127,7 +147,7 @@ public class MessageDAO {
         preparedStatement.executeUpdate();
         // Returns full updatd message for response body.
         return getMessageById(id);
-    } catch (SQLException e) { //Catches errors when querying database.
+    } catch (SQLException e) { //Catches exceeptions when querying database.
         System.out.println(e.getMessage());
     }
     // Returns null if messagee is not updated.
@@ -161,7 +181,7 @@ public class MessageDAO {
         }
         // If all messages with matched user id can be found, an ArrayList is found.
         return messages;
-    }catch(SQLException e){ // Catches errors when querying database.
+    }catch(SQLException e){ // Catches exceptions when querying database.
         System.out.println(e.getMessage());
     }
     // If no messages match the user_id, null is returned.
