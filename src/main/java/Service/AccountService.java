@@ -1,13 +1,19 @@
 package Service;
 import DAO.AccountDAO;
 import Model.Account;
-import static org.mockito.ArgumentMatchers.nullable;
 public class AccountService {
   public AccountDAO accountDAO; 
+  /**
+   * No parameters constructor for AccountService.
+   */
   public AccountService()
   {
     accountDAO=new AccountDAO();
   }
+  /**
+   * Parametrized constructor for instantiating a AccountDAO instance.
+   * @param accountDAO instance of AccountDAO class
+   */
   public AccountService(AccountDAO accountDAO)
   {
     this.accountDAO=accountDAO;
