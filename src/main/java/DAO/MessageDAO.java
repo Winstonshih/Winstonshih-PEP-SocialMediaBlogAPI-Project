@@ -21,7 +21,7 @@ public class MessageDAO {
             Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             messages.add(message);
         }
-        return messages
+        return messages;
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
