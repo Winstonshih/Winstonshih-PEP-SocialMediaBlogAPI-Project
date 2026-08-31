@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 public class MessageDAO {
     /**
-     * Method 
-     * @return
+     * Method  to retrieve all messages through a Message ArrayList.
+     * @return messages arraylist if all messages could be retrieved or null if DAO is unable to.
      */
   public List<Message> getAllMessages(){
     Connection connection = ConnectionUtil.getConnection();
@@ -50,9 +50,9 @@ public class MessageDAO {
     return null;
 }
 /**
- * 
- * @param message
- * @return
+ * Method to insert a new message object in databasee using insert sql query.
+ * @param message message object
+ * @return inserted message object and its data if successfully inserted or null if not inserted.
  */
   public Message insertMessage(Message message){
     Connection connection = ConnectionUtil.getConnection();
@@ -74,13 +74,15 @@ public class MessageDAO {
     return null;
  }
  /**
-  * 
-  * @param id
-  * @return
+  * Deletes message from database using delete sql query.
+  * @param id id of message
+  * @return Deleted message instance with its posted_by, message_text, time_posted, and message_id data if successful
+  * or null if not successful.
   */
  public Message deleteMessage(int id){
     Connection connection = ConnectionUtil.getConnection();
     try {
+        // Stores the message that will be deleted.
         Message msg=getMessageById(id);
         String sql = "delete from message where message_id = ?;" ;
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
