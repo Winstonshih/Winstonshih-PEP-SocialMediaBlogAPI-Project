@@ -17,20 +17,23 @@ public class MessageDAO {
         String sql = "select * from message";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
+        // Adds full messages to ArrayList.
         while(rs.next()){
             Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             messages.add(message);
         }
+        // If query can retrieve all messages in database.
         return messages;
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
+    // If query could not retrieve all messages.
     return null;
   }
   /**
-   * 
-   * @param id
-   * @return
+   * Method uses a select query to match all message tuples with specified message_id.
+   * @param id message id
+   * @return message object that matches message id if successfully matched or null if not matched.
    */
   public Message getMessageById(int id){
     Connection connection = ConnectionUtil.getConnection();
@@ -39,6 +42,7 @@ public class MessageDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet rs = preparedStatement.executeQuery();
+
         while(rs.next()){
             Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"),
                     rs.getString("message_text"), rs.getLong("time_posted_epoch"));
@@ -47,6 +51,7 @@ public class MessageDAO {
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
+    // If message id cannot be matched, method returns null.
     return null;
 }
 /**
@@ -71,6 +76,7 @@ public class MessageDAO {
     }catch(SQLException e){
         System.out.println(e.getMessage());
     }
+    // Returns null if message can not be inserted.
     return null;
  }
  /**
@@ -84,14 +90,20 @@ public class MessageDAO {
     try {
         // Stores the message that will be deleted.
         Message msg=getMessageById(id);
+        // Stores delete query.
         String sql = "delete from message where message_id = ?;" ;
+        // Creates a PreparedStatement object that avoids SQL injections.
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // Binds id to first placeholder.
         preparedStatement.setInt(1, id);
+        // Executes delete query.
         preparedStatement.executeUpdate();
+        // Returns the full message that was deleted.
         return msg;
-    }catch(SQLException e){
+    }catch(SQLException e){ // Catches errors that occur when executing SQL query.
         System.out.println(e.getMessage());
     }
+    // Returns null if message was not deleted.
     return null;
   }
   /**
@@ -103,40 +115,56 @@ public class MessageDAO {
   public Message updateMessage(int id, String m) {
     Connection connection = ConnectionUtil.getConnection();
     try {
+        // Stores the update query.
         String sql = "update message set message_text=? where message_id=?;";
+        // Creates a PreparedStatement object that avoids SQL injections.
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // Binds m to first placeholder.
         preparedStatement.setString(1, m);
+        // Binds id to second placeholder.
         preparedStatement.setInt(2, id);
+        // Executes update query.
         preparedStatement.executeUpdate();
+        // Returns full updatd message for response body.
         return getMessageById(id);
-    } catch (SQLException e) {
+    } catch (SQLException e) { //Catches errors when querying database.
         System.out.println(e.getMessage());
     }
+    // Returns null if messagee is not updated.
     return null;
   }
   /**
    * This method uses select clause to query all messages associated with user_id.
    * @param user_id id of user whose messages will be accessed
-   * @return messages from specific user if successful or null if not
+   * @return Message Arraylist of messages from specific user if successful or null if not
    */
   public List<Message> getAllMessagesByUser(int user_id)
   {
+    // Creates ArrayList containing all messages from a specific user id.
     List<Message> messages = new ArrayList<>();
+    // Establishes connection to SQL database.
     Connection connection = ConnectionUtil.getConnection();
     try {
+        // SQL query to get all messages by user.
         String sql = "select * from message where posted_by=?;";
+        // Creates a PreparedStatement object that avoids SQL injections.
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // Binds user_id to a placeholder.
         preparedStatement.setInt(1, user_id);
+        // Stores result  of executing query in ResultSet.
         ResultSet rs = preparedStatement.executeQuery();
+        // Adds full message to ArrayList as it scans ResultSet.
         while(rs.next()){
             Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"),
                     rs.getString("message_text"), rs.getLong("time_posted_epoch"));
             messages.add(m);
         }
+        // If all messages with matched user id can be found, an ArrayList is found.
         return messages;
-    }catch(SQLException e){
+    }catch(SQLException e){ // Catches errors when querying database.
         System.out.println(e.getMessage());
     }
+    // If no messages match the user_id, null is returned.
     return null;
   }
   
