@@ -93,10 +93,10 @@ public class MessageDAO {
     return null;
   }
   /**
-   * 
-   * @param id
-   * @param m
-   * @return
+   * This method finds a message by message_id and updates its text with update sql clause.
+   * @param id message id
+   * @param m message text
+   * @return instance of updated message.
    */
   public Message updateMessage(int id, String m) {
     Connection connection = ConnectionUtil.getConnection();
@@ -113,9 +113,9 @@ public class MessageDAO {
     return null;
   }
   /**
-   * 
-   * @param user_id
-   * @return
+   * This method uses select clause to query all messages associated with user_id.
+   * @param user_id id of user whose messages will be accessed
+   * @return messages from specific user if successful or null if not
    */
   public List<Message> getAllMessagesByUser(int user_id)
   {
