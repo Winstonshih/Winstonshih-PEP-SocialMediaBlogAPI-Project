@@ -6,6 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class MessageDAO {
+    /**
+     * 
+     * @return
+     */
   public List<Message> getAllMessages(){
     Connection connection = ConnectionUtil.getConnection();
     List<Message> messages = new ArrayList<>();
@@ -22,6 +26,11 @@ public class MessageDAO {
     }
     return messages;
   }
+  /**
+   * 
+   * @param id
+   * @return
+   */
   public Message getMessageById(int id){
     Connection connection = ConnectionUtil.getConnection();
     try {
@@ -39,6 +48,11 @@ public class MessageDAO {
     }
     return null;
 }
+/**
+ * 
+ * @param message
+ * @return
+ */
   public Message insertMessage(Message message){
     Connection connection = ConnectionUtil.getConnection();
     try {
@@ -58,6 +72,11 @@ public class MessageDAO {
     }
     return null;
  }
+ /**
+  * 
+  * @param id
+  * @return
+  */
  public Message deleteMessage(int id){
     Connection connection = ConnectionUtil.getConnection();
     try {
@@ -72,6 +91,12 @@ public class MessageDAO {
     }
     return null;
   }
+  /**
+   * 
+   * @param id
+   * @param m
+   * @return
+   */
   public Message updateMessage(int id, String m) {
     Connection connection = ConnectionUtil.getConnection();
     try {
@@ -86,6 +111,11 @@ public class MessageDAO {
     }
     return null;
   }
+  /**
+   * 
+   * @param user_id
+   * @return
+   */
   public List<Message> getAllMessagesByUser(int user_id)
   {
     List<Message> messages = new ArrayList<>();
