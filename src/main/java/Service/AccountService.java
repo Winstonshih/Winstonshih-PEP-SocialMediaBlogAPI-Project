@@ -33,10 +33,12 @@ public class AccountService {
    */
   public Account registerAccount(Account account)
   {
+    // If username is not empty and password is greateer than 3 characters, account is registered.
     if(!(account.getUsername().equals("")) && account.getPassword().length()>3)
     {
       return this.accountDAO.addAccount(account);
     }
+    // Null is returned when user registration fails.
     return null;
   }
 }
